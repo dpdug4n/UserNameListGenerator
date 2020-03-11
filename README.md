@@ -2,5 +2,5 @@
 Generates a list of usernames based off of common naming conventions.
 
 # Upcoming features
-Make userlist file an optional argument & make postional arguements 'firstName' 'lastName'.
-\n Add more naming conventions.
+Make userlist file an optional argument & make postional arguements 'firstName' 'lastName'. \
+Add more naming conventions.
