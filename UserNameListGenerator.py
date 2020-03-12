@@ -64,7 +64,7 @@ class UserNameGen(object):
                 return ''.join([firstName[0].upper()+firstName[1:3]+'_'+lastName[0].upper()+lastName[1:3]+str(num)+'\n' for num in range(0,11)])
 
         def LastFirst(self, firstName, lastName):
-                return lastName[0].upper()+lastName[1:]+firstName[0].upper()+firstName[1]
+                return lastName[0].upper()+lastName[1:]+firstName[0].upper()+firstName[1:]
         def LastFirstNum(self, firstName, lastName):
                 return ''.join([lastName[0].upper()+lastName[1:]+firstName[0].upper()+firstName[1:]+str(num)+'\n' for num in range(0,11)])
         def LastDotFirst(self, firstName, lastName):
@@ -91,45 +91,45 @@ class UserNameGen(object):
         
         #same methods but all lowercase
         def firstlast(self, firstName, lastName):
-                return firstName[0].lower()+firstName[1:]+lastName[0]+lastName[1:]
+                return firstName[0].lower()+firstName[1:]+lastName[0].lower()+lastName[1:]
         def firstlastNum(self, firstName, lastName):
-                return ''.join([firstName[0].lower()+firstName[1:]+lastName[0]+lastName[1:]+str(num)+'\n' for num in range(0,11)])
-        def firstDotLast(self, firstName, lastName):
-                return firstName[0].lower()+firstName[1:]+'.'+lastName[0]+lastName[1:]
+                return ''.join([firstName[0].lower()+firstName[1:]+lastName[0].lower()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
+        def firstDotlast(self, firstName, lastName):
+                return firstName[0].lower()+firstName[1:]+'.'+lastName[0].lower()+lastName[1:]
         def firstDotlastNum(self, firstName, lastName):
-                return ''.join([firstName[0].lower()+firstName[1:]+'.'+lastName[0]+lastName[1:]+str(num)+'\n' for num in range(0,11)])
+                return ''.join([firstName[0].lower()+firstName[1:]+'.'+lastName[0].lower()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
         def first_last(self, firstName, lastName):
-                return firstName[0].lower()+firstName[1:]+'_'+lastName[0]+lastName[1:]
+                return firstName[0].lower()+firstName[1:]+'_'+lastName[0].lower()+lastName[1:]
         def first_lastNum(self, firstName, lastName):
-                return ''.join([firstName[0].lower()+firstName[1:]+'_'+lastName[0]+lastName[1:]+str(num)+'\n' for num in range(0,11)])
+                return ''.join([firstName[0].lower()+firstName[1:]+'_'+lastName[0].lower()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
        
 
         def flast(self, firstName, lastName):
-                return firstName[0]+lastName[0]+lastName[1:]
+                return firstName[0].lower()+lastName[0].lower().lower()+lastName[1:]
         def flastNum(self, firstName, lastName):
-                return ''.join([firstName[0].lower()+lastName[0]+lastName[1:]+str(num)+'\n' for num in range(0,11)])
+                return ''.join([firstName[0].lower()+lastName[0].lower()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
         def fDotlast(self, firstName, lastName):
-                return firstName[0]+'.'+lastName[0]+lastName[1:]
+                return firstName[0].lower()+'.'+lastName[0].lower()+lastName[1:]
         def fDotlastNum(self, firstName, lastName):
-                return ''.join([firstName[0].lower()+'.'+lastName[0]+lastName[1:]+str(num)+'\n' for num in range(0,11)])
+                return ''.join([firstName[0].lower()+'.'+lastName[0].lower()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
         def f_last(self, firstName, lastName):
-                return firstName[0]+'_'+lastName[0]+lastName[1:]
+                return firstName[0].lower()+'_'+lastName[0].lower()+lastName[1:]
         def f_lastNum(self, firstName, lastName):
-                return ''.join([firstName[0].lower()+'_'+lastName[0]+lastName[1:]+str(num)+'\n' for num in range(0,11)])
+                return ''.join([firstName[0].lower()+'_'+lastName[0].lower()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
         
 
         def firstl(self, firstName, lastName):
-                return firstName[0].lower()+firstName[1:]+lastName[0]
+                return firstName[0].lower()+firstName[1:]+lastName[0].lower()
         def firstlNum(self, firstName, lastName):
-                return ''.join([firstName[0].lower()+firstName[1:]+lastName[0]+str(num)+'\n' for num in range(0,11)])
+                return ''.join([firstName[0].lower()+firstName[1:]+lastName[0].lower()+str(num)+'\n' for num in range(0,11)])
         def firstDotl(self, firstName, lastName):
-                return firstName[0].lower()+firstName[1:]+'.'+lastName[0]
+                return firstName[0].lower()+firstName[1:]+'.'+lastName[0].lower()
         def firstDotlNum(self, firstName, lastName):
-                return ''.join([firstName[0].lower()+firstName[1:]+'.'+lastName[0]+str(num)+'\n' for num in range(0,11)])
+                return ''.join([firstName[0].lower()+firstName[1:]+'.'+lastName[0].lower()+str(num)+'\n' for num in range(0,11)])
         def first_l(self, firstName, lastName):
-                return firstName[0].lower()+firstName[1:]+'_'+lastName[0]
+                return firstName[0].lower()+firstName[1:]+'_'+lastName[0].lower()
         def first_lNum(self, firstName, lastName):
-                return ''.join([firstName[0].lower()+firstName[1:]+'_'+lastName[0]+str(num)+'\n' for num in range(0,11)])
+                return ''.join([firstName[0].lower()+firstName[1:]+'_'+lastName[0].lower()+str(num)+'\n' for num in range(0,11)])
 
         def firlas(self, firstName, lastName):
                 return firstName[0].lower()+firstName[1:3]+lastName[0].lower()+lastName[1:3]
@@ -177,7 +177,7 @@ class UserNameGen(object):
                 else:
                         f.write(lineEntry + '\n')             
 
-        def load_users_file(self,):
+        def load_users_file(self):
                 with open(self.usersfile) as names:
                         usernames = [line.strip() for line in names]
                 self.generate_user_names(usernames)
@@ -190,6 +190,13 @@ class UserNameGen(object):
                         self.FirLas, self.FirLasNum, self.FirDotLas, self.FirDotLasNum, self.Fir_Las, self.Fir_LasNum,
                         self.LastFirst, self.LastFirstNum, self.LastDotFirst, self.LastDotFirstNum, self.Last_First, self.Last_FirstNum,
                         self.LasFir, self.LasFirNum,  self.LasDotFir, self.LasDotFirNum, self.Las_Fir, self.Las_FirNum,
+                        
+                        self.firstlast, self.firstlastNum, self.firstDotlast, self.firstDotlastNum,self.first_last, self.first_lastNum,
+                        self.flast, self.flastNum, self.fDotlast, self.fDotlastNum, self.f_last, self.f_lastNum,
+                        self.firstl, self.firstlNum, self.firstDotl, self.firstDotlNum, self.first_l, self.first_lNum,
+                        self.firlas, self.firlasNum, self.firDotlas, self.firDotlasNum, self.fir_las, self.fir_lasNum,
+                        self.lastfirst, self.lastfirstNum, self.lastDotfirst, self.lastDotfirstNum, self.last_first, self.last_firstNum,
+                        self.lasfir, self.lasfirNum,  self.lasDotfir, self.lasDotfirNum, self.las_fir, self.las_firNum,
                         ]
                 if self.outfile is not None:
                         f = open(self.outfile, 'w+')
