@@ -190,7 +190,7 @@ class UserNameGen(object):
                         self.FirLas, self.FirLasNum, self.FirDotLas, self.FirDotLasNum, self.Fir_Las, self.Fir_LasNum,
                         self.LastFirst, self.LastFirstNum, self.LastDotFirst, self.LastDotFirstNum, self.Last_First, self.Last_FirstNum,
                         self.LasFir, self.LasFirNum,  self.LasDotFir, self.LasDotFirNum, self.Las_Fir, self.Las_FirNum,
-                        
+                        #lowercase functions
                         self.firstlast, self.firstlastNum, self.firstDotlast, self.firstDotlastNum,self.first_last, self.first_lastNum,
                         self.flast, self.flastNum, self.fDotlast, self.fDotlastNum, self.f_last, self.f_lastNum,
                         self.firstl, self.firstlNum, self.firstDotl, self.firstDotlNum, self.first_l, self.first_lNum,
