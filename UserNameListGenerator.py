@@ -103,7 +103,6 @@ class UserNameGen(object):
         def first_lastNum(self, firstName, lastName):
                 return ''.join([firstName[0].lower()+firstName[1:]+'_'+lastName[0].lower()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
        
-
         def flast(self, firstName, lastName):
                 return firstName[0].lower()+lastName[0].lower().lower()+lastName[1:]
         def flastNum(self, firstName, lastName):
@@ -117,7 +116,6 @@ class UserNameGen(object):
         def f_lastNum(self, firstName, lastName):
                 return ''.join([firstName[0].lower()+'_'+lastName[0].lower()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
         
-
         def firstl(self, firstName, lastName):
                 return firstName[0].lower()+firstName[1:]+lastName[0].lower()
         def firstlNum(self, firstName, lastName):
