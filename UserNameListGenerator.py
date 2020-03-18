@@ -4,9 +4,11 @@ import argparse
 import sys
 
 class UserNameGen(object):
-        def __init__(self, usersfile, outfile):
+        def __init__(self, username, usersfile, outfile, numappend):
+                self.username = username
                 self.usersfile = usersfile
                 self.outfile = outfile 
+                self.numappend = numappend
         
         #string functions here
         def FirstLast(self, firstName, lastName):
@@ -21,7 +23,6 @@ class UserNameGen(object):
                 return firstName[0].upper()+firstName[1:]+'_'+lastName[0]+lastName[1:]
         def First_LastNum(self, firstName, lastName):
                 return ''.join([firstName[0].upper()+firstName[1:]+'_'+lastName[0]+lastName[1:]+str(num)+'\n' for num in range(0,11)])
-       
 
         def FLast(self, firstName, lastName):
                 return firstName[0]+lastName[0]+lastName[1:]
@@ -36,7 +37,6 @@ class UserNameGen(object):
         def F_LastNum(self, firstName, lastName):
                 return ''.join([firstName[0].upper()+'_'+lastName[0]+lastName[1:]+str(num)+'\n' for num in range(0,11)])
         
-
         def FirstL(self, firstName, lastName):
                 return firstName[0].upper()+firstName[1:]+lastName[0]
         def FirstLNum(self, firstName, lastName):
@@ -62,6 +62,19 @@ class UserNameGen(object):
                 return firstName[0].upper()+firstName[1:3]+'_'+lastName[0].upper()+lastName[1:3]
         def Fir_LasNum(self, firstName, lastName):
                 return ''.join([firstName[0].upper()+firstName[1:3]+'_'+lastName[0].upper()+lastName[1:3]+str(num)+'\n' for num in range(0,11)])
+
+        def FiLast(self, firstName, lastName):
+                return firstName[0].upper()+firstName[1:2]+lastName[0].upper()+lastName[1:]
+        def FiLastNum(self, firstName, lastName):
+                return ''.join([firstName[0].upper()+firstName[1:2]+lastName[0].upper()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
+        def FiDotLast(self, firstName, lastName):
+                return firstName[0].upper()+firstName[1:2]+'.'+lastName[0].upper()+lastName[1:]
+        def FiDotLastNum(self, firstName, lastName):
+                return ''.join([firstName[0].upper()+firstName[1:2]+'.'+lastName[0].upper()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
+        def Fi_Last(self, firstName, lastName):
+                return firstName[0].upper()+firstName[1:2]+'_'+lastName[0].upper()+lastName[1:]
+        def Fi_LastNum(self, firstName, lastName):
+                return ''.join([firstName[0].upper()+firstName[1:2]+'_'+lastName[0].upper()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
 
         def LastFirst(self, firstName, lastName):
                 return lastName[0].upper()+lastName[1:]+firstName[0].upper()+firstName[1:]
@@ -142,6 +155,19 @@ class UserNameGen(object):
         def fir_lasNum(self, firstName, lastName):
                 return ''.join([firstName[0].lower()+firstName[1:3]+'_'+lastName[0].lower()+lastName[1:3]+str(num)+'\n' for num in range(0,11)])
 
+        def filast(self, firstName, lastName):
+                return firstName[0].lower()+firstName[1:2]+lastName[0].lower()+lastName[1:]
+        def filastNum(self, firstName, lastName):
+                return ''.join([firstName[0].lower()+firstName[1:2]+lastName[0].lower()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
+        def fiDotlast(self, firstName, lastName):
+                return firstName[0].lower()+firstName[1:2]+'.'+lastName[0].lower()+lastName[1:]
+        def fiDotlastNum(self, firstName, lastName):
+                return ''.join([firstName[0].lower()+firstName[1:2]+'.'+lastName[0].lower()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
+        def fi_last(self, firstName, lastName):
+                return firstName[0].lower()+firstName[1:2]+'_'+lastName[0].lower()+lastName[1:]
+        def fi_lastNum(self, firstName, lastName):
+                return ''.join([firstName[0].lower()+firstName[1:2]+'_'+lastName[0].lower()+lastName[1:]+str(num)+'\n' for num in range(0,11)])
+
         def lastfirst(self, firstName, lastName):
                 return lastName[0].lower()+lastName[1:]+firstName[0].lower()+firstName[1]
         def lastfirstNum(self, firstName, lastName):
@@ -173,29 +199,54 @@ class UserNameGen(object):
                 if f is None:
                         print(lineEntry)
                 else:
-                        f.write(lineEntry + '\n')             
-
+                        f.write(lineEntry + '\n')        
+        
+        def run(self):
+                usernames = [self.username]
+                self.generate_user_names(usernames)
+                        
         def load_users_file(self):
                 with open(self.usersfile) as names:
                         usernames = [line.strip() for line in names]
                 self.generate_user_names(usernames)
 
         def generate_user_names(self, usernames):
-                functions = [
-                        self.FirstLast, self.FirstLastNum, self.FirstDotLast, self.FirstDotLastNum,self.First_Last, self.First_LastNum,
-                        self.FLast, self.FLastNum, self.FDotLast, self.FDotLastNum, self.F_Last, self.F_LastNum,
-                        self.FirstL, self.FirstLNum, self.FirstDotL, self.FirstDotLNum, self.First_L, self.First_LNum,
-                        self.FirLas, self.FirLasNum, self.FirDotLas, self.FirDotLasNum, self.Fir_Las, self.Fir_LasNum,
-                        self.LastFirst, self.LastFirstNum, self.LastDotFirst, self.LastDotFirstNum, self.Last_First, self.Last_FirstNum,
-                        self.LasFir, self.LasFirNum,  self.LasDotFir, self.LasDotFirNum, self.Las_Fir, self.Las_FirNum,
-                        #lowercase functions
-                        self.firstlast, self.firstlastNum, self.firstDotlast, self.firstDotlastNum,self.first_last, self.first_lastNum,
-                        self.flast, self.flastNum, self.fDotlast, self.fDotlastNum, self.f_last, self.f_lastNum,
-                        self.firstl, self.firstlNum, self.firstDotl, self.firstDotlNum, self.first_l, self.first_lNum,
-                        self.firlas, self.firlasNum, self.firDotlas, self.firDotlasNum, self.fir_las, self.fir_lasNum,
-                        self.lastfirst, self.lastfirstNum, self.lastDotfirst, self.lastDotfirstNum, self.last_first, self.last_firstNum,
-                        self.lasfir, self.lasfirNum,  self.lasDotfir, self.lasDotfirNum, self.las_fir, self.las_firNum,
-                        ]
+                if self.numappend is False:
+                         functions = [
+                                self.FirstLast, self.FirstDotLast, self.First_Last,
+                                self.FLast, self.FDotLast, self.F_Last, 
+                                self.FirstL, self.FirstDotL, self.First_L, 
+                                self.FirLas, self.FirDotLas, self.Fir_Las, 
+                                self.FiLast, self.FiDotLast, self.Fi_Last,
+                                self.LastFirst, self.LastDotFirst, self.Last_First, 
+                                self.LasFir, self.LasDotFir, self.Las_Fir, 
+                                #lowercase functions
+                                self.firstlast, self.firstDotlast, self.first_last, 
+                                self.flast, self.fDotlast, self.f_last, 
+                                self.firstl, self.firstDotl, self.first_l, 
+                                self.firlas, self.firDotlas, self.fir_las,
+                                self.filast, self.fiDotlast, self.fi_last,
+                                self.lastfirst, self.lastDotfirst, self.last_first,
+                                self.lasfir, self.lasDotfir, self.las_fir, 
+                                ]
+                else:
+                        functions = [
+                                self.FirstLast, self.FirstLastNum, self.FirstDotLast, self.FirstDotLastNum,self.First_Last, self.First_LastNum,
+                                self.FLast, self.FLastNum, self.FDotLast, self.FDotLastNum, self.F_Last, self.F_LastNum,
+                                self.FirstL, self.FirstLNum, self.FirstDotL, self.FirstDotLNum, self.First_L, self.First_LNum,
+                                self.FirLas, self.FirLasNum, self.FirDotLas, self.FirDotLasNum, self.Fir_Las, self.Fir_LasNum,
+                                self.FiLast, self.FiLastNum, self.FiDotLast, self.FiDotLastNum, self.Fi_Last, self.Fi_LastNum,
+                                self.LastFirst, self.LastFirstNum, self.LastDotFirst, self.LastDotFirstNum, self.Last_First, self.Last_FirstNum,
+                                self.LasFir, self.LasFirNum,  self.LasDotFir, self.LasDotFirNum, self.Las_Fir, self.Las_FirNum,
+                                #lowercase functions
+                                self.firstlast, self.firstlastNum, self.firstDotlast, self.firstDotlastNum,self.first_last, self.first_lastNum,
+                                self.flast, self.flastNum, self.fDotlast, self.fDotlastNum, self.f_last, self.f_lastNum,
+                                self.firstl, self.firstlNum, self.firstDotl, self.firstDotlNum, self.first_l, self.first_lNum,
+                                self.firlas, self.firlasNum, self.firDotlas, self.firDotlasNum, self.fir_las, self.fir_lasNum,
+                                self.filast, self.filastNum, self.fiDotlast, self.fiDotlastNum, self.fi_last, self.fi_lastNum,
+                                self.lastfirst, self.lastfirstNum, self.lastDotfirst, self.lastDotfirstNum, self.last_first, self.last_firstNum,
+                                self.lasfir, self.lasfirNum,  self.lasDotfir, self.lasDotfirNum, self.las_fir, self.las_firNum,
+                                ]
                 if self.outfile is not None:
                         f = open(self.outfile, 'w+')
                 else:
@@ -214,16 +265,25 @@ class UserNameGen(object):
 
 if __name__ == '__main__':
         parser = argparse.ArgumentParser(add_help= True, description= "Generates a list of usernames based off of standard naming conventions.")
-        parser.add_argument('usersfile', help="File with names to generate list from in 'FirstName LastName' format")
-        parser.add_argument('-o','--outfile',action='store', help= "File to save generated usernames in.")
+        parser.add_argument('-u','--username', help="Name of the user to enumerate. 'First Last' format")
+        parser.add_argument('-U','--usersfile', help="File with names to generate list in 'First Last' format")
+        parser.add_argument('-o','--outfile', action='store', help= "File to save generated usernames in.")
+        parser.add_argument('-n', action='store_true', help='Adds number range to every naming convention.')
 
         if len(sys.argv)==1:
                 parser.print_help()
                 sys.exit(1)
         
         args = parser.parse_args()
+        if args.n:
+                args.n = True
         try:
-                executer = UserNameGen(args.usersfile, args.outfile)
-                executer.load_users_file()
+                executer = UserNameGen(args.username, args.usersfile, args.outfile, args.n)
+                if executer.usersfile is not None:
+                        executer.load_users_file()
+                elif executer.username is not None:
+                        executer.run()
+                else:
+                        parser.print_help()
         except Exception as e:
                 print(e)
