@@ -4,11 +4,12 @@ import argparse
 import sys
 
 class UserNameGen(object):
-        def __init__(self, username, usersfile, outfile, numappend):
+        def __init__(self, username, usersfile, outfile, numappend, email):
                 self.username = username
                 self.usersfile = usersfile
                 self.outfile = outfile 
                 self.numappend = numappend
+                self.email = email
         
         #string functions here
         def FirstLast(self, firstName, lastName):
@@ -247,6 +248,7 @@ class UserNameGen(object):
                                 self.lastfirst, self.lastfirstNum, self.lastDotfirst, self.lastDotfirstNum, self.last_first, self.last_firstNum,
                                 self.lasfir, self.lasfirNum,  self.lasDotfir, self.lasDotfirNum, self.las_fir, self.las_firNum,
                                 ]
+               
                 if self.outfile is not None:
                         f = open(self.outfile, 'w+')
                 else:
@@ -256,7 +258,13 @@ class UserNameGen(object):
                                 firstName, lastName = name.split()
                                 for fn in functions:
                                         lineEntry = fn(firstName, lastName)
-                                        self.outputUserName(lineEntry, f)
+                                        if self.email:
+                                                lines = lineEntry.splitlines()
+                                                for line in lines:
+                                                        self.outputUserName(line+self.email, f)
+                                        else:
+                                                self.outputUserName(lineEntry, f)
+                                        
                         except Exception as e:
                             print(e)
                             continue
@@ -269,6 +277,7 @@ if __name__ == '__main__':
         parser.add_argument('-U','--usersfile', help="File with names to generate list in 'First Last' format")
         parser.add_argument('-o','--outfile', action='store', help= "File to save generated usernames in.")
         parser.add_argument('-n', action='store_true', help='Adds number range to every naming convention.')
+        parser.add_argument('-e', '--email', help="Appends '@domain.com' to all generated usernames")
 
         if len(sys.argv)==1:
                 parser.print_help()
@@ -278,7 +287,7 @@ if __name__ == '__main__':
         if args.n:
                 args.n = True
         try:
-                executer = UserNameGen(args.username, args.usersfile, args.outfile, args.n)
+                executer = UserNameGen(args.username, args.usersfile, args.outfile, args.n, args.email)
                 if executer.usersfile is not None:
                         executer.load_users_file()
                 elif executer.username is not None:
